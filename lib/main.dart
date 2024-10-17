@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_backtome/views/pageCrearCuenta.dart';
+import 'package:flutter_backtome/views/pageHome.dart';
+import 'package:flutter_backtome/views/pageRegister.dart';
+
 import 'views/pageUser.dart';
+import 'views/pageSearch.dart';
 
 // Se le indica a flutter que ejecute la app definida en MyApp
 void main() {
@@ -26,11 +30,11 @@ class _MyAppState extends State<MyApp> {
 
     //Inicializar la lista en initState
     _paginas = [
-      Center(child: Text('Inicio')),
-      Center(child: Text('Busqueda')),
-      PageCrearCuenta(background: _backgroundColor),
+      PageHome(backgroundColor: _backgroundColor),
+      PageSearch(backgroundColor: _backgroundColor),
+      PageRegister(backgroundColor: _backgroundColor),
       //Center(child: Text('Registrar')),
-      Pageuser(),
+      PageUser(background: _backgroundColor),
     ];
   }
 

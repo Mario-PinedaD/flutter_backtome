@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Pageuser extends StatelessWidget {
+class PageUser extends StatefulWidget {
+  final Color background;
+  //Constructor
+  PageUser({required this.background});
+
+  @override
+  _Pageuser createState() => _Pageuser();
+}
+
+class _Pageuser extends State<PageUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: widget.background,
       appBar: AppBar(
         title: Text("Paguna Usuario"),
         backgroundColor: Colors.black,
