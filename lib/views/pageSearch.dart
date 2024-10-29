@@ -60,6 +60,7 @@ class _PageSearchState extends State<PageSearch> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 30),
             // Barra de búsqueda
             Row(
               children: [
@@ -94,14 +95,19 @@ class _PageSearchState extends State<PageSearch> {
               children: [
                 Text(
                   'Objetos Encontrados',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {
                     // Funcionalidad del filtro
                   },
-                  icon: Icon(Icons.filter_list),
-                  label: Text('Recientes'),
+                  icon: Icon(
+                    Icons.filter_list,
+                  ),
+                  label: Text(
+                    'Recientes',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF1B396A), // Color institucional
                     shape: RoundedRectangleBorder(
@@ -160,9 +166,16 @@ class _PageSearchState extends State<PageSearch> {
               'Objeto 1',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(
-              'Esta es una descripción del objeto encontrado',
-            ),
+            Container(
+              constraints: BoxConstraints(maxHeight: 50),
+              child: Text(
+                'Esta es una descripción del objeto encontrado',
+                overflow: TextOverflow
+                    .ellipsis, //Agregar puntos suspensivos si es que hay más información
+                maxLines: 2, //Solo mostrará 2 lineas del contenido
+                style: TextStyle(color: Colors.black),
+              ),
+            )
           ],
         ),
       ),
