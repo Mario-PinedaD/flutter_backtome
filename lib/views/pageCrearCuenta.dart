@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_backtome/views/pageAppGeneral.dart';
 
 class PageCrearCuenta extends StatefulWidget {
   final Color background;
@@ -114,6 +115,13 @@ class _PageCrearCuentaState extends State<PageCrearCuenta> {
               onPressed: () {
                 // Acción al presionar el botón
                 print('Crear cuenta presionado');
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PageAppGeneral(background: widget.background),
+                    ));
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
