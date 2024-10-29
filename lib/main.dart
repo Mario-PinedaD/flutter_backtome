@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_backtome/views/pageCrearCuenta.dart';
+//Cositas de FireBase
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 // Se le indica a flutter que ejecute la app definida en MyApp
-void main() {
+Future<void> main() async {
+  //Se asegura que esté inicializado
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Espera a que inicialice Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
