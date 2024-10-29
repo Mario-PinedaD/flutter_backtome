@@ -32,3 +32,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+  - ./lib/resources/ITVer_Logo.png
+  - ./lib/resources/itver_logo_sf.png

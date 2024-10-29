@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_backtome/views/pageCrearCuenta.dart';
+import 'package:flutter_backtome/views/pageLogin.dart';
 //Cositas de FireBase
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
           primaryColor: _institutionalColor,
           scaffoldBackgroundColor: _backgroundAppColor,
         ),
-        home: PageCrearCuenta(background: _backgroundAppColor));
+        //home: PageCrearCuenta(background: _backgroundAppColor));
+        home: PageLogin());
   }
 }

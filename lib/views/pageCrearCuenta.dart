@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_backtome/views/pageAppGeneral.dart';
+//Importar librerías para autenticación
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PageCrearCuenta extends StatefulWidget {
   final Color background;
@@ -11,7 +13,39 @@ class PageCrearCuenta extends StatefulWidget {
 }
 
 class _PageCrearCuentaState extends State<PageCrearCuenta> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool mantenerSesion = false;
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _apellidosController = TextEditingController();
+  final TextEditingController _correoController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  Future<void> _signUp() async {
+    if (_passwordController.text == _confirmPasswordController.text) {
+      try {
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
+          email: _correoController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        print("User registered: ${userCredential.user?.email}");
+
+        // Navega a la pantalla principal
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PageAppGeneral(background: widget.background),
+          ),
+        );
+      } catch (e) {
+        print("Error: $e");
+      }
+    } else {
+      print("Las contraseñas no coinciden");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +53,19 @@ class _PageCrearCuentaState extends State<PageCrearCuenta> {
       backgroundColor: widget.background,
       appBar: AppBar(
         title: Text('Crear cuenta'),
-        backgroundColor: Colors.black,
+        //backgroundColor: Colors.black,
+        backgroundColor: widget.background,
       ),
+      //body: SingleChildScrollView(
+      resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 30),
-            //Logo e imagen central
-            Image.network(
-              'https://via.placeholder.com/150',
-              height: 150,
-            ),
             SizedBox(height: 20),
             Text(
-              'Crea tu cuenta',
+              'CREA TU CUENTA',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -42,7 +73,7 @@ class _PageCrearCuentaState extends State<PageCrearCuenta> {
               ),
             ),
             Text(
-              'Ir a Back to me',
+              'Y conmencemos a ayudar',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
@@ -51,43 +82,58 @@ class _PageCrearCuentaState extends State<PageCrearCuenta> {
             SizedBox(height: 20),
             // Campo Nombre
             TextFormField(
+              controller: _nombreController,
               decoration: InputDecoration(
                 labelText: 'Nombre',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 15),
             // Campo Apellidos
             TextFormField(
+              controller: _apellidosController,
               decoration: InputDecoration(
                 labelText: 'Apellidos',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 15),
             // Campo Nombre de usuario
             TextFormField(
+              controller: _correoController,
               decoration: InputDecoration(
                 labelText: 'Correo Electrónico',
                 helperText: 'Ingresa un correo electrónico valido',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 15),
             // Campo Contraseña
             TextFormField(
+              controller: _passwordController,
               decoration: InputDecoration(
-                labelText: 'Contraseña (NIP)',
+                labelText: 'Contraseña',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
               obscureText: true,
             ),
             SizedBox(height: 15),
             // Campo Confirmación de contraseña
             TextFormField(
+              controller: _confirmPasswordController,
               decoration: InputDecoration(
                 labelText: 'Confirmación de contraseña',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
               obscureText: true,
             ),
@@ -112,27 +158,16 @@ class _PageCrearCuentaState extends State<PageCrearCuenta> {
             SizedBox(height: 30),
             // Botón Crear cuenta
             ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón
-                print('Crear cuenta presionado');
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          PageAppGeneral(background: widget.background),
-                    ));
-              },
+              onPressed: _signUp,
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
-                backgroundColor: Colors.blue[800],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                  backgroundColor: Colors.blue[800],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
               child: Text(
                 'Crear cuenta',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
             SizedBox(height: 30),

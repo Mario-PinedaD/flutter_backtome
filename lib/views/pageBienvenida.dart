@@ -27,7 +27,7 @@ class PageBienvenida extends StatelessWidget {
                   // Al dar clic, navega a la pantalla de inicio de sesión
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Pagelogin()),
+                    MaterialPageRoute(builder: (context) => PageLogin()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
