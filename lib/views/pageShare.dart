@@ -64,7 +64,7 @@ class _PageShareState extends State<PageShare> {
                 CircleAvatar(
                   radius: 25,
                   backgroundImage:
-                      AssetImage("assets/avatar.png"), // Imagen del usuario
+                      AssetImage("assets/mario.jpg"), // Imagen del usuario
                 ),
                 SizedBox(width: 10),
                 Text(

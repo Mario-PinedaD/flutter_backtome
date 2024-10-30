@@ -24,8 +24,8 @@ class _PageUserState extends State<PageUser> {
                 SizedBox(height: 30),
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(
-                    'https://via.placeholder.com/150',
+                  backgroundImage: AssetImage(
+                    "assets/mario.jpg",
                   ),
                 ),
                 SizedBox(height: 10),
@@ -69,7 +69,8 @@ class _PageUserState extends State<PageUser> {
                   OptionButton(
                     icon: Icons.contact_support,
                     label: 'Contacto y Soporte',
-                    content: 'Aquí puedes contactar con el soporte.',
+                    content:
+                        '"Back To Me" es un proyecto desarrollado por alumnos de ingeniería en sistemas computacinoales en el ITVER, en caso de cualquier aclaración y problemática favor de contactar al: 2299408506',
                   ),
                 ],
               ),
@@ -100,7 +101,7 @@ class OptionButton extends StatelessWidget {
           builder: (BuildContext context) {
             return Container(
               padding: EdgeInsets.all(16),
-              height: 200,
+              height: 400,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

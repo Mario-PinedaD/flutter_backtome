@@ -78,7 +78,8 @@ class _PageSearchState extends State<PageSearch> {
                 children: [
                   CircleAvatar(
                     backgroundImage: AssetImage(
-                        'assets/user_image.png'), // Imagen del usuario
+                      'assets/mario.jpg',
+                    ), // Imagen del usuario
                     radius: 24.0,
                   ),
                   SizedBox(width: 10),
@@ -170,9 +171,12 @@ class _PageSearchState extends State<PageSearch> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            Image.asset(
+              'assets/ipone.jpg', // Ruta de la imagen en tu carpeta assets
               height: 100,
-              color: Colors.grey[300], // Placeholder para la imagen del objeto
+              width: double.infinity,
+              fit: BoxFit
+                  .cover, // Ajusta la imagen para que ocupe todo el espacio
             ),
             SizedBox(height: 10),
             Text(

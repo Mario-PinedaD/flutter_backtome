@@ -79,13 +79,14 @@ class _PageHomeState extends State<PageHome> {
                 children: [
                   CircleAvatar(
                     backgroundImage: AssetImage(
-                        'assets/user_image.png'), // Imagen del usuario
+                      'assets/mario.jpg',
+                    ), // Imagen del usuario
                     radius: 24.0,
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      'Nombre del usuario',
+                      'Mario Pineda',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -134,8 +135,8 @@ class _PageHomeState extends State<PageHome> {
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/user_image.png'), // Imagen del usuario
+                    backgroundImage:
+                        AssetImage('assets/mario.jpg'), // Imagen del usuario
                     radius: 20.0,
                   ),
                   SizedBox(width: 10),
@@ -146,10 +147,12 @@ class _PageHomeState extends State<PageHome> {
                 ],
               ),
               SizedBox(height: 10),
-              Container(
+              Image.asset(
+                'assets/ipone.jpg', // Ruta de la imagen en tu carpeta assets
                 height: 150,
-                color:
-                    Colors.grey[300], // Placeholder para la imagen del objeto
+                width: double.infinity,
+                fit: BoxFit
+                    .cover, // Ajusta la imagen para que ocupe todo el espacio
               ),
               SizedBox(height: 10),
               Text(
