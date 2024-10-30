@@ -1,20 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-class PageShare extends StatelessWidget {
+class PageShare extends StatefulWidget {
   final Color backgroundColor;
 
   PageShare({required this.backgroundColor});
 
   @override
+  _PageShareState createState() => _PageShareState();
+}
+
+class _PageShareState extends State<PageShare> {
+  DateTime? _selectedDate;
+  File? _selectedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  String get _formattedDate {
+    return _selectedDate == null
+        ? "¿Cuándo lo encontraste?"
+        : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+  }
+
+  Future<void> _pickDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: widget.backgroundColor,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: widget.backgroundColor,
         title: Text("Compartir objeto"),
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +63,8 @@ class PageShare extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundImage: AssetImage("assets/avatar.png"), // Imagen del usuario
+                  backgroundImage:
+                      AssetImage("assets/avatar.png"), // Imagen del usuario
                 ),
                 SizedBox(width: 10),
                 Text(
@@ -33,32 +74,64 @@ class PageShare extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-            Container(
-              height: 150,
-              color: Colors.grey[300], // Aquí iría la imagen del objeto
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  image: _selectedImage != null
+                      ? DecorationImage(
+                          image: FileImage(_selectedImage!),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
+                child: _selectedImage == null
+                    ? Icon(Icons.camera_alt, color: Colors.grey[700], size: 40)
+                    : null,
+              ),
             ),
             SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
-                hintText: "¿Qué objeto encontraste?",
+                labelText: '¿Qué objeto encontraste?',
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
-                hintText: "¿Dónde lo encontraste?",
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "¿A quién se lo entregaste?",
+                labelText: '¿Dónde lo encontraste?',
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
                 hintText: "¿En dónde lo dejaste?",
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+            ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () => _pickDate(context),
+              child: AbsorbPointer(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: _formattedDate,
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -66,11 +139,15 @@ class PageShare extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Lógica para compartir el objeto
+                  print("INGATURROÑA");
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF1B396A), // Color del botón
                 ),
-                child: Text("Compartir"),
+                child: Text(
+                  "Compartir",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],

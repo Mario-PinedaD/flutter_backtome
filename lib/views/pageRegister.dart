@@ -15,7 +15,7 @@ class PageRegister extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Crear un anuncio",
+              "Crea un anuncio",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
@@ -48,11 +48,20 @@ class PageRegister extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Lógica adicional para seleccionar imagen (opcional)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PageShare(backgroundColor: backgroundColor)),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF1B396A), // Color del botón
                     ),
-                    child: Text("Selecciona la imagen del objeto"),
+                    child: Text(
+                      "Selecciona la imagen del anuncio",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),
