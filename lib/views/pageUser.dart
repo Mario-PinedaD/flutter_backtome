@@ -2,28 +2,26 @@ import 'package:flutter/material.dart';
 
 class PageUser extends StatefulWidget {
   final Color background;
+  final Color institucional;
+
   //Constructor
-  PageUser({required this.background});
+  PageUser({required this.background, required this.institucional});
 
   @override
-  _Pageuser createState() => _Pageuser();
+  _PageUserState createState() => _PageUserState();
 }
 
-class _Pageuser extends State<PageUser> {
+class _PageUserState extends State<PageUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: widget.background,
-      appBar: AppBar(
-        title: Text("Paguna Usuario"),
-        backgroundColor: Colors.black,
-      ),
       body: Column(
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: Column(
               children: [
+                SizedBox(height: 30),
                 CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
@@ -50,23 +48,33 @@ class _Pageuser extends State<PageUser> {
             ),
           ),
           Expanded(
-              child: Container(
-                  padding: EdgeInsets.all(16),
-                  color: Colors.blue[800],
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        OptionButton(
-                            icon: Icons.account_circle,
-                            label: 'Información de la cuenta'),
-                        SizedBox(height: 20),
-                        OptionButton(
-                            icon: Icons.history, label: 'Historial de Objetos'),
-                        SizedBox(height: 20),
-                        OptionButton(
-                            icon: Icons.contact_support,
-                            label: 'Contacto y Soporte')
-                      ])))
+            child: Container(
+              padding: EdgeInsets.all(16),
+              color: widget.institucional,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OptionButton(
+                    icon: Icons.account_circle,
+                    label: 'Información de la cuenta',
+                    content: 'Aquí se muestra la información de la cuenta.',
+                  ),
+                  SizedBox(height: 20),
+                  OptionButton(
+                    icon: Icons.history,
+                    label: 'Historial de Objetos',
+                    content: 'Aquí se muestra el historial de objetos.',
+                  ),
+                  SizedBox(height: 20),
+                  OptionButton(
+                    icon: Icons.contact_support,
+                    label: 'Contacto y Soporte',
+                    content: 'Aquí puedes contactar con el soporte.',
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -76,31 +84,62 @@ class _Pageuser extends State<PageUser> {
 class OptionButton extends StatelessWidget {
   final IconData icon;
   final String label;
-  OptionButton({required this.icon, required this.label});
+  final String content;
+
+  OptionButton(
+      {required this.icon, required this.label, required this.content});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 15),
-      child: Row(
-        children: [
-          SizedBox(width: 20),
-          Icon(icon, size: 30, color: Colors.black),
-          SizedBox(width: 20),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          isDismissible: true, // Permite cerrar al tocar fuera de la ventana
+          enableDrag: true, // Permite cerrarla deslizando hacia abajo
+          builder: (BuildContext context) {
+            return Container(
+              padding: EdgeInsets.all(16),
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(content),
+                ],
+              ),
+            );
+          },
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 15),
+        child: Row(
+          children: [
+            SizedBox(width: 20),
+            Icon(icon, size: 30, color: Colors.black),
+            SizedBox(width: 20),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

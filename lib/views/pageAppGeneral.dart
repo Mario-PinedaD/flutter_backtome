@@ -28,7 +28,8 @@ class _PageAppGeneralState extends State<PageAppGeneral> {
       PageHome(backgroundColor: widget.background),
       PageSearch(backgroundColor: widget.background),
       PageRegister(backgroundColor: widget.background),
-      PageUser(background: widget.background),
+      PageUser(
+          background: widget.background, institucional: _institutionalColor),
     ];
   }
 

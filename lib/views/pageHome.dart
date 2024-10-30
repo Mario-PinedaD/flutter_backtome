@@ -58,6 +58,7 @@ class _PageHomeState extends State<PageHome> {
           .backgroundColor, // Usa el color de fondo que se pasó por el constructor
       body: Column(
         children: [
+          SizedBox(height: 30),
           // Parte superior con nombre de usuario y notificaciones
           Padding(
             padding: const EdgeInsets.all(16.0),
