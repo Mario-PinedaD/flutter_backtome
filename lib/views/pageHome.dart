@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_backtome/views/pageUser.dart';
 
 class PageHome extends StatefulWidget {
   final Color backgroundColor;
@@ -14,6 +16,7 @@ class _PageHomeState extends State<PageHome> {
   final ScrollController _scrollController = ScrollController();
   List<int> _items = List.generate(10, (index) => index); // Items iniciales
   bool _isLoading = false;
+  final Color _institutionalColor = Color(0xFF1B396A);
 
   @override
   void initState() {
@@ -62,22 +65,34 @@ class _PageHomeState extends State<PageHome> {
           // Parte superior con nombre de usuario y notificaciones
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user_image.png'), // Imagen del usuario
-                  radius: 24.0,
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    'Nombre del usuario',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PageUser(
+                          background: widget.backgroundColor,
+                          institucional: _institutionalColor)),
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(
+                        'assets/user_image.png'), // Imagen del usuario
+                    radius: 24.0,
                   ),
-                ),
-                Icon(Icons.notifications),
-              ],
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Nombre del usuario',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Icon(Icons.notifications),
+                ],
+              ),
             ),
           ),
           Expanded(

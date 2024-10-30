@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_backtome/views/pageUser.dart';
 
 class PageSearch extends StatefulWidget {
   final Color backgroundColor;
@@ -14,6 +15,7 @@ class _PageSearchState extends State<PageSearch> {
   final ScrollController _scrollController = ScrollController();
   List<int> _items = List.generate(10, (index) => index); // Items iniciales
   bool _isLoading = false;
+  final Color _institutionalColor = Color(0xFF1B396A);
 
   @override
   void initState() {
@@ -62,30 +64,41 @@ class _PageSearchState extends State<PageSearch> {
           children: [
             SizedBox(height: 30),
             // Barra de búsqueda
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/user_image.png'), // Imagen del usuario
-                  radius: 24.0,
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Buscar',
-                      prefixIcon: Icon(Icons.search),
-                      suffixIcon: Icon(Icons.close),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                        borderSide: BorderSide.none,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PageUser(
+                          background: widget.backgroundColor,
+                          institucional: _institutionalColor)),
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(
+                        'assets/user_image.png'), // Imagen del usuario
+                    radius: 24.0,
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Buscar',
+                        prefixIcon: Icon(Icons.search),
+                        suffixIcon: Icon(Icons.close),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[200],
                       ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 20),
 
